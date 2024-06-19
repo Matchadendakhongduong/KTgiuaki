@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Thông Tin Nhân Viên</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css"/>
+</head>
+<body>
+<h1>Thông Tin Nhân Viên</h1>
+<a href="/nhanviens/add">Thêm Nhân Viên</a>
+<table>
+    <thead>
+    <tr>
+        <th>Mã Nhân Viên</th>
+        <th>Tên Nhân Viên</th>
+        <th>Giới Tính</th>
+        <th>Nơi Sinh</th>
+        <th>Tên Phòng</th>
+        <th>Lương</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="nhanVien : ${nhanViens}">
+        <td th:text="${nhanVien.maNV}"></td>
+        <td th:text="${nhanVien.tenNV}"></td>
+        <td>
+            <img th:src="${nhanVien.phai == 'NU'} ? '/images/woman.jpg' : '/images/man.jpg'" width="50" height="50"/>
+        </td>
+        <td th:text="${nhanVien.noiSinh}"></td>
+        <td th:text="${#lists.find(phongBans, p -> p.maPhong == nhanVien.maPhong)?.tenPhong}"></td>
+        <td th:text="${nhanVien.luong}"></td>
+        <td>
+            <a th:href="@{/nhanviens/edit/{maNV}(maNV=${nhanVien.maNV})}">Edit</a>
+            <a th:href="@{/nhanviens/delete/{maNV}(maNV=${nhanVien.maNV})}">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
